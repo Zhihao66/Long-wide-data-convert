@@ -1,0 +1,3 @@
+id	name	Math	English	Science
+1	Alice	85	92	88
+2	Bob	90	88	92
