@@ -438,7 +438,7 @@
         <header>
             <h1 id="headerTitle">📊 数据格式转换工具</h1>
             <p id="headerSubtitle">Wide & Long Format Data Converter</p>
-            <p id="headerDesc" style="font-size: 0.95em; margin-top: 10px; opacity: 0.8;">轻松转换宽数据和长数据格式</p>
+            <p id="headerDesc" style="font-size: 0.95em; margin-top: 10px; opacity: 0.8;"></p>
             <div class="lang-toggle">
                 <button class="lang-btn active" onclick="setLanguage('cn')">中文</button>
                 <button class="lang-btn" onclick="setLanguage('en')">English</button>
@@ -448,20 +448,20 @@
         <div class="info-section">
             <div class="info-grid">
                 <div class="info-card">
-                    <h3>📈 宽格式</h3>
-                    <p>多列放不同变量，一行一个观测</p>
+                    <h3>📈 <span id="wideFormatTitle">宽格式</span></h3>
+                    <p id="wideFormatDesc">多列放不同变量，一行一个观测</p>
                 </div>
                 <div class="info-card">
-                    <h3>📉 长格式</h3>
-                    <p>多行放同个观测，一列一个变量</p>
+                    <h3>📉 <span id="longFormatTitle">长格式</span></h3>
+                    <p id="longFormatDesc">多行放同个观测，一列一个变量</p>
                 </div>
                 <div class="info-card">
-                    <h3>🔄 双向转换</h3>
-                    <p>支持宽 ↔ 长相互转换</p>
+                    <h3>🔄 <span id="biTitle">双向转换</span></h3>
+                    <p id="biDesc">支持宽 ↔ 长相互转换</p>
                 </div>
                 <div class="info-card">
-                    <h3>💾 文件格式</h3>
-                    <p>仅支持 CSV、TSV（文本分隔）</p>
+                    <h3>💾 <span id="fileTitle">文件格式</span></h3>
+                    <p id="fileDesc">仅支持 CSV、TSV（文本分隔）</p>
                 </div>
             </div>
         </div>
@@ -477,21 +477,21 @@
                 </div>
 
                 <div id="textInput" class="input-section" style="display: block;">
-                    <div class="section-title">粘贴你的 CSV 或 TSV 数据</div>
-                    <textarea id="dataInput" placeholder="将数据粘贴到这里...\n\n例如 (CSV):\nid,name,2020,2021\n1,Alice,100,120\n2,Bob,200,210\n\n例如 (TSV):\nid\tname\t2020\t2021\n1\tAlice\t100\t120\n2\tBob\t200\t210"></textarea>
+                    <div class="section-title" id="pasteTitle">粘贴你的 CSV 或 TSV 数据</div>
+                    <textarea id="dataInput" placeholder=""></textarea>
                 </div>
 
                 <div id="fileInput" class="input-section" style="display: none;">
                     <div class="file-input-wrapper">
                         <input type="file" id="fileUpload" accept=".csv,.tsv" onchange="handleFileUpload(event)">
-                        <label class="file-input-label" for="fileUpload">
+                        <label class="file-input-label" id="fileInputLabel" for="fileUpload">
                             📁 点击选择或拖拽文件
-                            <br><small>仅支持 CSV (.csv) 或 TSV (.tsv)</small>
+                            <br><small id="fileInputSmall">仅支持 CSV (.csv) 或 TSV (.tsv)</small>
                         </label>
                     </div>
                 </div>
 
-                <div class="section-title" style="margin-top: 20px;">转换选项</div>
+                <div class="section-title" style="margin-top: 20px;" id="optionTitle">转换选项</div>
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                     <div style="margin-bottom: 15px;">
                         <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">转换方向</label>
@@ -503,76 +503,76 @@
 
                     <div id="wide2longOptions" style="display: block;">
                         <div style="margin-bottom: 15px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">ID 列（保持不变）</label>
+                            <label id="idColsLabel" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">ID 列（保持不变）</label>
                             <input type="text" id="idVars" placeholder="例如: id,name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95em;">
                         </div>
                         <div style="margin-bottom: 15px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">变量列名</label>
+                            <label id="varNameLabel" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">变量列名</label>
                             <input type="text" id="varName" value="variable" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95em;">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">值列名</label>
+                            <label id="valueNameLabel" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">值列名</label>
                             <input type="text" id="valueName" value="value" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95em;">
                         </div>
                     </div>
 
                     <div id="long2wideOptions" style="display: none;">
                         <div style="margin-bottom: 15px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">索引列</label>
+                            <label id="indexColLabel" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">索引列</label>
                             <input type="text" id="indexCol" placeholder="例如: id,name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95em;">
                         </div>
                         <div style="margin-bottom: 15px;">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">列列</label>
+                            <label id="columnColLabel" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">列列</label>
                             <input type="text" id="columnCol" placeholder="例如: year" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95em;">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">值列</label>
+                            <label id="valueColLabel" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">值列</label>
                             <input type="text" id="valueCol" placeholder="例如: value" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95em;">
                         </div>
                     </div>
                 </div>
 
                 <div class="button-group">
-                    <button class="btn-primary" onclick="convertData()">🔄 开始转换</button>
-                    <button class="btn-secondary" onclick="clearInput()">🗑️ 清空</button>
+                    <button id="convertBtn" class="btn-primary" onclick="convertData()">🔄 开始转换</button>
+                    <button id="clearInputBtn" class="btn-secondary" onclick="clearInput()">🗑️ 清空</button>
                 </div>
             </div>
 
             <!-- 右侧：输出 -->
             <div class="card">
-                <h2>📤 输出结果</h2>
+                <h2 id="outputTitle">📤 输出结果</h2>
                 <div id="successMessage" class="success-message"></div>
                 <div id="errorMessage" class="error-message"></div>
 
                 <div class="output-section">
-                    <div class="section-title">转换后的数据</div>
-                    <textarea id="dataOutput" readonly placeholder="转换结果将显示在这里..."></textarea>
+                    <div class="section-title" id="resultTitle">转换后的数据</div>
+                    <textarea id="dataOutput" readonly placeholder=""></textarea>
                 </div>
 
                 <div class="button-group">
-                    <button class="btn-copy" onclick="copyOutput()">📋 复制</button>
-                    <button class="btn-download" onclick="downloadOutput()">⬇️ 下载 CSV</button>
-                    <button class="btn-secondary" onclick="clearOutput()">🗑️ 清空</button>
+                    <button id="copyBtn" class="btn-copy" onclick="copyOutput()">📋 复制</button>
+                    <button id="downloadBtn" class="btn-download" onclick="downloadOutput()">⬇️ 下载 CSV</button>
+                    <button id="clearOutputBtn" class="btn-secondary" onclick="clearOutput()">🗑️ 清空</button>
                 </div>
             </div>
         </div>
 
         <!-- 示例部分 -->
         <div class="example-section">
-            <h2 style="color: #667eea; margin-bottom: 20px; font-size: 1.5em;">📚 使用示例</h2>
+            <h2 id="examplesTitle" style="color: #667eea; margin-bottom: 20px; font-size: 1.5em;">📚 使用示例</h2>
             
             <div class="example-tabs">
-                <button class="example-tab active" onclick="showExample(0)">示例 1: 学生成绩</button>
-                <button class="example-tab" onclick="showExample(1)">示例 2: 销售数据</button>
-                <button class="example-tab" onclick="showExample(2)">示例 3: 长 → 宽</button>
+                <button id="ex1Btn" class="example-tab active" onclick="showExample(0)">示例 1: 学生成绩</button>
+                <button id="ex2Btn" class="example-tab" onclick="showExample(1)">示例 2: 销售数据</button>
+                <button id="ex3Btn" class="example-tab" onclick="showExample(2)">示例 3: 长 → 宽</button>
             </div>
 
             <div class="example-content active">
-                <p style="margin-bottom: 10px; color: #666;"><strong>输入（宽格式）：</strong></p>
+                <p id="inputWideLabel" style="margin-bottom: 10px; color: #666;"><strong>输入（宽格式）：</strong></p>
                 <pre>id,name,Math,English,Science
 1,Alice,85,92,88
 2,Bob,90,88,92</pre>
-                <p style="margin: 15px 0 10px 0; color: #666;"><strong>输出（长格式）：</strong></p>
+                <p id="outputLongLabel" style="margin: 15px 0 10px 0; color: #666;"><strong>输出（长格式）：</strong></p>
                 <pre>id,name,variable,value
 1,Alice,Math,85
 1,Alice,English,92
@@ -583,12 +583,12 @@
             </div>
 
             <div class="example-content">
-                <p style="margin-bottom: 10px; color: #666;"><strong>输入（宽格式）：</strong></p>
+                <p id="inputWideLabel2" style="margin-bottom: 10px; color: #666;"><strong>输入（宽格式）：</strong></p>
                 <pre>region,2020,2021,2022
 East,100000,120000,140000
 West,150000,160000,180000
 South,120000,135000,155000</pre>
-                <p style="margin: 15px 0 10px 0; color: #666;"><strong>输出（长格式）：</strong></p>
+                <p id="outputLongLabel2" style="margin: 15px 0 10px 0; color: #666;"><strong>输出（长格式）：</strong></p>
                 <pre>region,year,sales
 East,2020,100000
 East,2021,120000
@@ -602,7 +602,7 @@ South,2022,155000</pre>
             </div>
 
             <div class="example-content">
-                <p style="margin-bottom: 10px; color: #666;"><strong>输入（长格式）：</strong></p>
+                <p id="inputLongLabel" style="margin-bottom: 10px; color: #666;"><strong>输入（长格式）：</strong></p>
                 <pre>id,name,subject,score
 1,Alice,Math,85
 1,Alice,English,92
@@ -610,7 +610,7 @@ South,2022,155000</pre>
 2,Bob,Math,90
 2,Bob,English,88
 2,Bob,Science,92</pre>
-                <p style="margin: 15px 0 10px 0; color: #666;"><strong>输出（宽格式）：</strong></p>
+                <p id="outputWideLabel" style="margin: 15px 0 10px 0; color: #666;"><strong>输出（宽格式）：</strong></p>
                 <pre>id,name,Math,English,Science
 1,Alice,85,92,88
 2,Bob,90,88,92</pre>

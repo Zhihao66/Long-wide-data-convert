@@ -615,6 +615,10 @@ function updateUILanguage() {
     const headerSubtitle = document.getElementById('headerSubtitle');
     if (headerSubtitle) headerSubtitle.textContent = t('subtitle');
     
+    const headerDesc = document.getElementById('headerDesc');
+    if (headerDesc) headerDesc.textContent = '轻松转换宽数据和长数据格式（' + (currentLanguage === 'cn' ? '中文' : 'English') + '版本）';
+    
+    // Language buttons
     const langBtns = document.querySelectorAll('.lang-btn');
     langBtns.forEach((btn, idx) => {
         if ((idx === 0 && currentLanguage === 'cn') || (idx === 1 && currentLanguage === 'en')) {
@@ -625,41 +629,117 @@ function updateUILanguage() {
     });
     
     // Info cards
-    const infoCards = document.querySelectorAll('.info-card');
-    if (infoCards.length >= 3) {
-        infoCards[0].querySelector('p').textContent = t('wideDesc');
-        infoCards[1].querySelector('p').textContent = t('longDesc');
-        infoCards[2].querySelector('p').textContent = t('fileFormatDesc');
+    const wideFormatTitle = document.getElementById('wideFormatTitle');
+    if (wideFormatTitle) wideFormatTitle.textContent = currentLanguage === 'cn' ? '宽格式' : 'Wide Format';
+    
+    const longFormatTitle = document.getElementById('longFormatTitle');
+    if (longFormatTitle) longFormatTitle.textContent = currentLanguage === 'cn' ? '长格式' : 'Long Format';
+    
+    const biTitle = document.getElementById('biTitle');
+    if (biTitle) biTitle.textContent = currentLanguage === 'cn' ? '双向转换' : 'Bidirectional';
+    
+    const fileTitle = document.getElementById('fileTitle');
+    if (fileTitle) fileTitle.textContent = currentLanguage === 'cn' ? '文件格式' : 'File Format';
+    
+    const wideFormatDesc = document.getElementById('wideFormatDesc');
+    if (wideFormatDesc) wideFormatDesc.textContent = t('wideDesc');
+    
+    const longFormatDesc = document.getElementById('longFormatDesc');
+    if (longFormatDesc) longFormatDesc.textContent = t('longDesc');
+    
+    const biDesc = document.getElementById('biDesc');
+    if (biDesc) biDesc.textContent = t('biDesc');
+    
+    const fileDesc = document.getElementById('fileDesc');
+    if (fileDesc) fileDesc.textContent = t('fileFormatDesc');
+    
+    // Input section
+    const pasteTitle = document.getElementById('pasteTitle');
+    if (pasteTitle) pasteTitle.textContent = t('pasteData');
+    
+    const optionTitle = document.getElementById('optionTitle');
+    if (optionTitle) optionTitle.textContent = t('conversionMode');
+    
+    // Labels
+    const idColsLabel = document.getElementById('idColsLabel');
+    if (idColsLabel) idColsLabel.textContent = t('idColumns');
+    
+    const varNameLabel = document.getElementById('varNameLabel');
+    if (varNameLabel) varNameLabel.textContent = t('varName');
+    
+    const valueNameLabel = document.getElementById('valueNameLabel');
+    if (valueNameLabel) valueNameLabel.textContent = t('valueName');
+    
+    const indexColLabel = document.getElementById('indexColLabel');
+    if (indexColLabel) indexColLabel.textContent = t('indexCol');
+    
+    const columnColLabel = document.getElementById('columnColLabel');
+    if (columnColLabel) columnColLabel.textContent = t('columnCol');
+    
+    const valueColLabel = document.getElementById('valueColLabel');
+    if (valueColLabel) valueColLabel.textContent = t('valueCol');
+    
+    // File input label
+    const fileInputLabel = document.getElementById('fileInputLabel');
+    if (fileInputLabel) {
+        const small = fileInputLabel.querySelector('small');
+        if (small) small.textContent = t('errorFileType');
+        fileInputLabel.childNodes[0].textContent = '📁 ' + t('uploadPlaceholder').split('\n')[0];
     }
     
-    // Input/Output headers
-    const inputHeader = document.querySelector('.main-content .card:first-child h2');
-    const outputHeader = document.querySelector('.main-content .card:last-child h2');
-    if (inputHeader) inputHeader.textContent = t('input');
-    if (outputHeader) outputHeader.textContent = t('output');
+    // Buttons
+    const convertBtn = document.getElementById('convertBtn');
+    if (convertBtn) convertBtn.textContent = t('convert');
     
-    // Toggle buttons
-    const toggleBtns = document.querySelectorAll('.toggle-btn');
-    if (toggleBtns.length >= 2) {
-        toggleBtns[0].textContent = t('text');
-        toggleBtns[1].textContent = t('file');
-    }
+    const clearInputBtn = document.getElementById('clearInputBtn');
+    if (clearInputBtn) clearInputBtn.textContent = t('clear');
     
-    // Labels and placeholders
-    const labels = document.querySelectorAll('label');
-    labels.forEach(label => {
-        const text = label.textContent.trim();
-        if (text.includes('ID') || text.includes('转换方向') || text.includes('变量')) {
-            // Update specific labels based on content
-            if (text.includes('ID')) label.textContent = t('idColumns');
-            if (text.includes('转换')) label.textContent = t('conversionMode');
-            if (text.includes('变量') && text.includes('列名')) label.textContent = t('varName');
-            if (text.includes('值') && text.includes('列名')) label.textContent = t('valueName');
-            if (text.includes('索引')) label.textContent = t('indexCol');
-            if (text.includes('列列')) label.textContent = t('columnCol');
-            if (text.includes('值列')) label.textContent = t('valueCol');
-        }
-    });
+    const copyBtn = document.getElementById('copyBtn');
+    if (copyBtn) copyBtn.textContent = t('copy');
+    
+    const downloadBtn = document.getElementById('downloadBtn');
+    if (downloadBtn) downloadBtn.textContent = t('download');
+    
+    const clearOutputBtn = document.getElementById('clearOutputBtn');
+    if (clearOutputBtn) clearOutputBtn.textContent = t('clear');
+    
+    // Output section
+    const outputTitle = document.getElementById('outputTitle');
+    if (outputTitle) outputTitle.textContent = t('output');
+    
+    const resultTitle = document.getElementById('resultTitle');
+    if (resultTitle) resultTitle.textContent = currentLanguage === 'cn' ? '转换后的数据' : 'Converted Data';
+    
+    // Examples
+    const examplesTitle = document.getElementById('examplesTitle');
+    if (examplesTitle) examplesTitle.textContent = t('examples');
+    
+    const ex1Btn = document.getElementById('ex1Btn');
+    if (ex1Btn) ex1Btn.textContent = t('example1');
+    
+    const ex2Btn = document.getElementById('ex2Btn');
+    if (ex2Btn) ex2Btn.textContent = t('example2');
+    
+    const ex3Btn = document.getElementById('ex3Btn');
+    if (ex3Btn) ex3Btn.textContent = t('example3');
+    
+    const inputWideLabel = document.getElementById('inputWideLabel');
+    if (inputWideLabel) inputWideLabel.textContent = '**' + t('inputWide') + '**';
+    
+    const outputLongLabel = document.getElementById('outputLongLabel');
+    if (outputLongLabel) outputLongLabel.textContent = '**' + t('outputLong') + '**';
+    
+    const inputWideLabel2 = document.getElementById('inputWideLabel2');
+    if (inputWideLabel2) inputWideLabel2.textContent = '**' + t('inputWide') + '**';
+    
+    const outputLongLabel2 = document.getElementById('outputLongLabel2');
+    if (outputLongLabel2) outputLongLabel2.textContent = '**' + t('outputLong') + '**';
+    
+    const inputLongLabel = document.getElementById('inputLongLabel');
+    if (inputLongLabel) inputLongLabel.textContent = '**' + t('inputLong') + '**';
+    
+    const outputWideLabel = document.getElementById('outputWideLabel');
+    if (outputWideLabel) outputWideLabel.textContent = '**' + t('outputWide') + '**';
     
     // Select options
     const conversionMode = document.getElementById('conversionMode');
@@ -671,29 +751,17 @@ function updateUILanguage() {
         }
     }
     
-    // Buttons
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(btn => {
-        const onclick = btn.getAttribute('onclick');
-        if (onclick === 'convertData()') btn.textContent = t('convert');
-        if (onclick === 'clearInput()') btn.textContent = t('clear');
-        if (onclick === 'copyOutput()') btn.textContent = t('copy');
-        if (onclick === 'downloadOutput()') btn.textContent = t('download');
-        if (onclick === 'clearOutput()') btn.textContent = t('clear');
-        if (onclick === 'showAbout()') btn.textContent = t('about');
-    });
-    
-    // File upload placeholder
-    const fileLabel = document.querySelector('.file-input-label');
-    if (fileLabel) {
-        fileLabel.textContent = t('uploadPlaceholder');
+    // Update placeholders
+    const dataInput = document.getElementById('dataInput');
+    if (dataInput) {
+        const defaultExample = `id,name,Math,English,Science
+1,Alice,85,92,88
+2,Bob,90,88,92`;
+        dataInput.placeholder = t('pasteData') + '...\n\n' + (currentLanguage === 'cn' ? '例如' : 'Example') + ':\n' + defaultExample;
     }
     
-    // Update conversion mode select labels
-    const select = document.getElementById('conversionMode');
-    if (select) {
-        const options = select.querySelectorAll('option');
-        if (options[0]) options[0].textContent = t('wide2long');
-        if (options[1]) options[1].textContent = t('long2wide');
+    const dataOutput = document.getElementById('dataOutput');
+    if (dataOutput) {
+        dataOutput.placeholder = currentLanguage === 'cn' ? '转换结果将显示在这里...' : 'Conversion result will be displayed here...';
     }
 }
