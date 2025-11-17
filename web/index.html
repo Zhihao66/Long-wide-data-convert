@@ -28,6 +28,7 @@
             color: white;
             margin-bottom: 40px;
             animation: slideDown 0.6s ease;
+            position: relative;
         }
 
         header h1 {
@@ -39,6 +40,36 @@
         header p {
             font-size: 1.1em;
             opacity: 0.9;
+        }
+
+        .lang-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.8);
+            color: #667eea;
         }
 
         .main-content {
@@ -405,9 +436,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>📊 数据格式转换工具</h1>
-            <p>Wide & Long Format Data Converter</p>
-            <p style="font-size: 0.95em; margin-top: 10px; opacity: 0.8;">轻松转换宽数据和长数据格式</p>
+            <h1 id="headerTitle">📊 数据格式转换工具</h1>
+            <p id="headerSubtitle">Wide & Long Format Data Converter</p>
+            <p id="headerDesc" style="font-size: 0.95em; margin-top: 10px; opacity: 0.8;">轻松转换宽数据和长数据格式</p>
+            <div class="lang-toggle">
+                <button class="lang-btn active" onclick="setLanguage('cn')">中文</button>
+                <button class="lang-btn" onclick="setLanguage('en')">English</button>
+            </div>
         </header>
 
         <div class="info-section">
